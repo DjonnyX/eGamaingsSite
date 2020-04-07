@@ -19,4 +19,9 @@ export interface IGameModel {
      * base64img
      */
     image: string;
+
+    /**
+     * Тэг игры
+     */
+    tag: Array<string>;
 }
