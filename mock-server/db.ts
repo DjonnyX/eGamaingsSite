@@ -1,5 +1,12 @@
 import { IGameModel } from '../src/app/models/IGameModel';
 
+const TBL_GAMETAGS: Array<string> = [
+    "AsiaGaming",
+    "AsiaLiveTech",
+    "BetGames",
+    "Evolution",
+]
+
 const TBL_GAMES: Array<IGameModel> = [
     {
         id: "afdc3d32-789f-11ea-bc55-0242ac130003",

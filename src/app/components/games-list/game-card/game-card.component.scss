@@ -1,0 +1,43 @@
+.game-card {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.card-info {
+    position: absolute;
+    background-color: rgba(117, 81, 0, 0.8);
+    color: white;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    padding: 0px 20px;
+    transition: transform 0.35s;
+
+    .card-info__header {
+        font-size: 1.8em;
+        font-weight: 300;
+    }
+
+    .card-info__load-button {
+        width: 140px;
+        height: 42px;
+        background-color: #eac68d;
+        color: #251b0b;
+        font-size: 1.2em;
+        font-weight: 300;
+
+        &:hover {
+            background-color: white;
+        }
+    }
+
+    &.hit {
+        transform: translateY(0);
+    }
+
+    transform: translateY(100%);
+}

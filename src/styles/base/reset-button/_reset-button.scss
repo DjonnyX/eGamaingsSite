@@ -1,0 +1,13 @@
+@mixin reset-button {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    text-align: center;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    background: none;
+    -webkit-tap-highlight-color: transparent;
+    font: inherit;
+}

@@ -1,15 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { ID } from '@datorama/akita';
 import {IGameModel} from '../models/IGameModel';
 import { createRequestParams, IRequestParams } from '../utils/srv-request.util';
 
-const HTTP_OPTIONS = {
-  headers: new HttpHeaders({
-    'Content-Type': 'application/json'
-  })
-};
 
 const API_URL = '/api/';
 
@@ -26,6 +20,7 @@ export class ApiRoutes {
 interface IGameFilterParams {
   id?: number;
   name?: string;
+  tag?: Array<string>;
 }
 
 @Injectable({
