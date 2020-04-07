@@ -11,7 +11,6 @@ const HTTP_OPTIONS = {
   })
 };
 
-
 const API_URL = '/api/';
 
 enum ApiRouteNames {
@@ -64,7 +63,7 @@ export class ApiService {
    * Обновление выбранной игры
    * Для выставления флага <code>isFavorite</code>
    */
-  updateGames(game: IGameModel) {
+  /*updateGames(game: IGameModel) {
     return this._http.put<IGameModel>(`${ApiRoutes.GAMES}/${game.id}`, game);
-  }
+  }*/
 }
