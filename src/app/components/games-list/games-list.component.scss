@@ -21,11 +21,14 @@ $card-size-xl: 236px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
+    border-radius: 3px;
+    overflow: hidden;
 }
 
 @media only screen and (min-width: 576px) {
     .game-list__card {
         height: $card-size-s;
+        border-radius: 2px;
     }
     .games-list {
         grid-template-columns: repeat(auto-fill, minmax($card-size-s, 1fr));

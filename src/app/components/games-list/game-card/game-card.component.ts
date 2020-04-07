@@ -18,6 +18,8 @@ export class GameCardComponent implements OnInit, OnDestroy {
 
   public isMouseHover$ = new BehaviorSubject<boolean>(false);
 
+  public isFavorite$ = new BehaviorSubject<boolean>(false);
+
   constructor() { }
 
   ngOnInit(): void {
@@ -39,5 +41,7 @@ export class GameCardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.isMouseHover$.unsubscribe();
     this.isMouseHover$ = null;
+    this.isFavorite$.unsubscribe();
+    this.isFavorite$ = null;
   }
 }

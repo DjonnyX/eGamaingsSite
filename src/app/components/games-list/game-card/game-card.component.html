@@ -1,4 +1,13 @@
 <div class="card-info" [ngClass]="{'hit': isMouseHover$ | async}">
-    <h3 class="card-info__header">{{name}}</h3>
+    <div class="card-info__container">
+        <h3 class="card-info__header">{{name}}</h3>
+        <ng-template [ngIf]="isFavorite$ | async" [ngIfElse]="favorite">
+            <div class="icon-favorite-selected"></div>
+        </ng-template>
+
+        <ng-template #favorite>
+            <div class="icon-favorite"></div>
+        </ng-template>
+    </div>
     <button class="card-info__load-button">Play</button>
 </div>
