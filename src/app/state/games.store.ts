@@ -2,24 +2,37 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IGameModel } from '../models/IGameModel';
 import { ApiService } from '../services/api.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GamesStore {
 
-  totalGames = new BehaviorSubject<number>(0);
+  private _totalGames = new BehaviorSubject<number>(0);
 
-  gamesList = new BehaviorSubject<Array<IGameModel>>([]);
+  private _gamesList = new BehaviorSubject<Array<IGameModel>>([]);
 
   constructor(private _apiService: ApiService) {}
 
-  updateGameList() {
+  queryGetGameList() {
     this._apiService.getGames().subscribe(
       (data) => {
-        this.totalGames.next(data.total);
-        this.gamesList.next(data.items)
+        this._totalGames.next(data.total);
+        this._gamesList.next(data.items)
       }
     );
+  }
+
+  selectGamesList() {
+    return this._gamesList.pipe(
+      map(items => items),
+    )
+  }
+
+  selectGamesLengthPerPage() {
+    return this._gamesList.pipe(
+      map(items => items.length),
+    )
   }
 }
