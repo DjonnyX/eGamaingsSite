@@ -10,5 +10,5 @@ server.use('/api/', router);
 server.use(router);
 
 server.listen(3000, () => {
-    console.log('Mock-server is running')
+    console.log('Mock-server is runing')
 });

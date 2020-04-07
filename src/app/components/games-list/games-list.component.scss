@@ -1,0 +1,64 @@
+$card-size-xs: 160px;
+$card-size-s: 160px;
+$card-size-m: 180px;
+$card-size-l: 200px;
+$card-size-xl: 236px;
+
+.games-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax($card-size-xs, 1fr));
+    grid-gap: 12px;
+    list-style-type: none;
+    background-color: black;
+    margin: 0;
+    padding: 40px;
+}
+
+.game-list__card {
+    position: relative;
+    height: $card-size-xs;
+    overflow: hidden;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+@media only screen and (min-width: 576px) {
+    .game-list__card {
+        height: $card-size-s;
+        border-radius: 2px;
+    }
+    .games-list {
+        grid-template-columns: repeat(auto-fill, minmax($card-size-s, 1fr));
+        grid-gap: 14px;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .game-list__card {
+        height: $card-size-m;
+    }
+    .games-list {
+        grid-template-columns: repeat(auto-fill, minmax($card-size-m, 1fr));
+        grid-gap: 16px;
+    }
+}
+@media only screen and (min-width: 960px) {
+    .game-list__card {
+        height: $card-size-l;
+    }
+    .games-list {
+        grid-template-columns: repeat(auto-fill, minmax($card-size-l, 1fr));
+        grid-gap: 18px;
+    }
+}
+@media only screen and (min-width: 1140px) {
+    .game-list__card {
+        height: $card-size-xl;
+    }
+    .games-list {
+        grid-template-columns: repeat(auto-fill, minmax($card-size-xl, 1fr));
+        grid-gap: 20px;
+    }
+}

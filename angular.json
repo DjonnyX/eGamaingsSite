@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "eGamingsTest"
+    }
+  },
+  "defaultProject": "eGamingsTest",
+  "cli": {
+    "analytics": false
+  }
 }

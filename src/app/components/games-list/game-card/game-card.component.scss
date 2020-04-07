@@ -1,0 +1,169 @@
+$favorite-icon-size: 32px;
+
+.game-card {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.card-info {
+    position: absolute;
+    background-color: rgba(117, 81, 0, 0.8);
+    color: white;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    transition: transform 0.35s;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 14px 20px;
+
+    .icon-favorite-selected {
+        background-image: url("../../../../assets/icons/icon-favorite-selected.svg");
+        background-repeat: no-repeat;
+        width: $favorite-icon-size * 0.7;
+        height: $favorite-icon-size * 0.7;
+
+        &:hover {
+            background-image: url("../../../../assets/icons/icon-favorite.svg");
+        }
+    }
+
+    .icon-favorite {
+        background-image: url("../../../../assets/icons/icon-favorite.svg");
+        background-repeat: no-repeat;
+        width: $favorite-icon-size * 0.7;
+        height: $favorite-icon-size * 0.7;
+
+        &:hover {
+            background-image: url("../../../../assets/icons/icon-favorite-selected.svg");
+        }
+    }
+
+    .card-info__container {
+        display: grid;
+        grid-template-columns: auto $favorite-icon-size;
+    }
+
+    .card-info__header {
+        margin: 0px 10px 0px 0px;
+        font-size: 1.5em;
+        font-weight: 300;
+    }
+
+    .card-info__load-button {
+        width: 140px;
+        height: 42px;
+        background-color: #eac68d;
+        color: #251b0b;
+        font-size: 1.1em;
+        font-weight: 300;
+
+        &:hover {
+            background-color: white;
+        }
+    }
+
+    &.hit {
+        transform: translateY(0);
+    }
+
+    transform: translateY(100%);
+}
+
+@media only screen and (min-width: 576px) {
+    .card-info {
+        padding: 18px 12px 18px;
+
+        .card-info__header {
+            font-size: 1.4em;
+        }
+
+        .card-info__load-button {
+            font-size: 1.2em;
+        }
+
+        .icon-favorite-selected {
+            width: $favorite-icon-size * 0.7;
+            height: $favorite-icon-size * 0.7;
+        }
+    
+        .icon-favorite {
+            width: $favorite-icon-size * 0.7;
+            height: $favorite-icon-size * 0.7;
+        }
+    }
+}
+@media only screen and (min-width: 768px) {
+    .card-info {
+        padding: 20px 14px 20px;
+
+        .card-info__header {
+            font-size: 1.6em;
+        }
+
+        .card-info__load-button {
+            font-size: 1.2em;
+        }
+
+        .icon-favorite-selected {
+            width: $favorite-icon-size * 0.8;
+            height: $favorite-icon-size * 0.8;
+        }
+    
+        .icon-favorite {
+            width: $favorite-icon-size * 0.8;
+            height: $favorite-icon-size * 0.8;
+        }
+    }
+}
+@media only screen and (min-width: 960px) {
+    .card-info {
+        padding: 26px 16px 26px;
+
+        .card-info__header {
+            font-size: 1.8em;
+        }
+
+        .card-info__load-button {
+            font-size: 1.2em;
+        }
+        .icon-favorite-selected {
+            width: $favorite-icon-size * 0.9;
+            height: $favorite-icon-size * 0.9;
+        }
+    
+        .icon-favorite {
+            width: $favorite-icon-size * 0.9;
+            height: $favorite-icon-size * 0.9;
+        }
+    }
+}
+@media only screen and (min-width: 1140px) {
+    .card-info {
+        padding: 32px 20px 32px;
+
+        .card-info__header {
+            font-size: 1.8em;
+        }
+
+        .card-info__load-button {
+            font-size: 1.2em;
+        }
+        .icon-favorite-selected {
+            width: $favorite-icon-size;
+            height: $favorite-icon-size;
+        }
+    
+        .icon-favorite {
+            width: $favorite-icon-size;
+            height: $favorite-icon-size;
+        }
+    }
+}
