@@ -15,6 +15,8 @@ export class GamesStore {
 
   constructor(private _apiService: ApiService) {}
 
+  // query
+  
   queryGetGameList() {
     this._apiService.getGames().subscribe(
       (data) => {
@@ -23,6 +25,8 @@ export class GamesStore {
       }
     );
   }
+
+  // selectors
 
   selectGamesList() {
     return this._gamesList.pipe(
@@ -33,6 +37,12 @@ export class GamesStore {
   selectGamesLengthPerPage() {
     return this._gamesList.pipe(
       map(items => items.length),
+    )
+  }
+
+  selectGamesLength() {
+    return this._totalGames.pipe(
+      map(total => total),
     )
   }
 }

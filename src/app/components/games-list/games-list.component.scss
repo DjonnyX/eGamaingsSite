@@ -9,7 +9,6 @@ $card-size-xl: 236px;
     grid-template-columns: repeat(auto-fill, minmax($card-size-xs, 1fr));
     grid-gap: 12px;
     list-style-type: none;
-    background-color: black;
     margin: 0;
     padding: 40px;
 }

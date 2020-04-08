@@ -9,10 +9,12 @@ import { GamesStore } from 'src/app/state/games.store';
 })
 export class HeaderComponent implements OnInit {
 
+  gamesPerPage$: Observable<number>;
   totalGamesPerPage$: Observable<number>;
 
   constructor(private _store: GamesStore) {
-    this.totalGamesPerPage$ = _store.selectGamesLengthPerPage();
+    this.gamesPerPage$ = _store.selectGamesLengthPerPage();
+    this.totalGamesPerPage$ = _store.selectGamesLength();
   }
 
   ngOnInit(): void {

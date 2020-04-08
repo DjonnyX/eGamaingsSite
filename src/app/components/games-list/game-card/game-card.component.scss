@@ -10,7 +10,7 @@ $favorite-icon-size: 32px;
 
 .card-info {
     position: absolute;
-    background-color: rgba(117, 81, 0, 0.8);
+    background-color: rgba(103, 89, 66, 0.83);
     color: white;
     left: 0;
     right: 0;
@@ -25,6 +25,7 @@ $favorite-icon-size: 32px;
     padding: 20px 14px 20px;
 
     .icon-favorite-selected {
+        cursor: pointer;
         background-image: url("../../../../assets/icons/icon-favorite-selected.svg");
         background-repeat: no-repeat;
         width: $favorite-icon-size * 0.7;
@@ -36,6 +37,7 @@ $favorite-icon-size: 32px;
     }
 
     .icon-favorite {
+        cursor: pointer;
         background-image: url("../../../../assets/icons/icon-favorite.svg");
         background-repeat: no-repeat;
         width: $favorite-icon-size * 0.7;

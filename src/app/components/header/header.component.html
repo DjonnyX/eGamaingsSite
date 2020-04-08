@@ -1,1 +1,5 @@
-<p>Games per page: {{totalGamesPerPage$ | async}}</p>
+<div class="header">
+    <p class="header__item" >Games per page: {{gamesPerPage$ | async}}</p>
+    <span class="separator"></span>
+    <p class="header__item" >Total games: {{totalGamesPerPage$ | async}}</p>
+</div>
