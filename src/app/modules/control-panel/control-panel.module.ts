@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ControlPanelComponent } from 'src/app/components/control-panel/control-panel.component';
 import { SearchGamesModule } from '../search-games/search-games.module';
+import { PaginatorModule } from '../paginator/paginator.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,8 @@ import { SearchGamesModule } from '../search-games/search-games.module';
   ],
   imports: [
     CommonModule,
-    SearchGamesModule
+    SearchGamesModule,
+    PaginatorModule,
   ]
 })
 export class ControlPanelModule { }

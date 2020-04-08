@@ -1,0 +1,41 @@
+@import "../../../styles/vars/colors";
+
+@mixin button {
+    width: 40px;
+    height: 40px;
+    background-color: $color-deep-ochre;
+    color: white;
+    font-size: 1.1em;
+    font-weight: 300;
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: $color-ochre;
+        color: $color-deep-ochre-100;
+    }
+}
+
+$icon-size: 32px;
+
+.paginator {
+    display: flex;
+    align-items: center;
+
+    .paginator__label {
+        color: $color-ochre;
+        padding-right: 14px;
+    }
+
+    .paginator__button-prev {
+        @include button;
+    }
+
+    .paginator__button-next {
+        @include button;
+    }
+}
+
+.paginator__select-items-per-page {
+    width: 80px;
+    font-weight: 300;
+}

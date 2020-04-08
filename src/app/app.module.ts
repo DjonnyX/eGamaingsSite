@@ -10,7 +10,7 @@ import { ControlPanelModule } from './modules/control-panel/control-panel.module
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
