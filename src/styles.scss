@@ -9,3 +9,7 @@ body {
 button {
     @include reset-button;
 }
+
+input {
+    @include reset-input;
+}

@@ -1,0 +1,13 @@
+@mixin reset-input {
+	background: 0 0;
+	font: inherit;
+	color: inherit;
+	border: none;
+	outline: 0;
+	padding: 0;
+	margin: 0;
+	width: 100%;
+	max-width: 100%;
+	vertical-align: bottom;
+	text-align: inherit;
+}

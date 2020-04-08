@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IGameModel } from '../models/IGameModel';
-import { ApiService } from '../services/api.service';
+import { ApiService, IGameFilterParams } from '../services/api.service';
 import { map } from 'rxjs/operators';
+import { IRequestParams } from '../utils/srv-request.util';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,27 @@ export class GamesStore {
 
   private _gamesList = new BehaviorSubject<Array<IGameModel>>([]);
 
-  constructor(private _apiService: ApiService) {}
+  private _filter: IRequestParams<IGameFilterParams> = { filter: [] };
+
+  constructor(private _apiService: ApiService) { }
 
   // query
-  
+
   queryGetGameList() {
-    this._apiService.getGames().subscribe(
+    this._apiService.getGames(this._filter).subscribe(
       (data) => {
         this._totalGames.next(data.total);
         this._gamesList.next(data.items)
       }
     );
+  }
+
+  querySearchByName(value: string) {
+    this._filter.filter = [];
+    if (value && value !== "") {
+      this._filter.filter.push({ name: value });
+    }
+    this.queryGetGameList();
   }
 
   // selectors

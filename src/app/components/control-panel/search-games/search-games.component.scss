@@ -1,0 +1,22 @@
+$search-input-height: 36px;
+$border-color: #54462f;
+
+.search-input {
+    display: flex;
+    height: $search-input-height;
+    border: 2px solid $border-color;
+
+    .search-input__input {
+        color: rgba(255, 255, 255, 0.83);
+        width: 200px;
+        padding: 8px 12px;
+    }
+    .search-input__img {
+        background-image: url("../../../../assets/icons/search-icon.svg");
+        background-repeat: no-repeat;
+        background-color: $border-color;
+        width: 20px;
+        height: 100%;
+        padding: 0px 8px;
+    }
+}
