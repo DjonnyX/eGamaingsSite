@@ -27,6 +27,8 @@ export class GamesStore {
 
   private _filterCategories: IGameFilterParams[];
 
+  private _filterSortBy: string;
+
   constructor(private _apiService: ApiService) { }
 
   private _getGames() {
@@ -57,6 +59,12 @@ export class GamesStore {
       filter.push({name: this._filterName});
     }
 
+    if (this._filterSortBy === "none") {
+      delete this._filter.sortBy;
+    } else {
+      this._filter.sortBy = this._filterSortBy;
+    }
+
     this._filter.filter = filter;
   }
 
@@ -82,6 +90,14 @@ export class GamesStore {
   querySetCategoriesFilter(categories: string[]) {
     this._filterCategories = this.normalizedCategFilter(categories);
   
+    this.composeFilter();
+  
+    this.queryGetGameList();
+  }
+
+  querySetSortByFilter(sortBy: string) {
+    this._filterSortBy = sortBy;
+
     this.composeFilter();
   
     this.queryGetGameList();

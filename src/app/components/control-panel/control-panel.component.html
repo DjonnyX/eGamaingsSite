@@ -1,5 +1,7 @@
 <div class="control-panel">
-    <div></div>
+    <div class="control-panel__group">
+        <app-select #sortBy class="control-panel__sort-by" [autoselectFirst]="false" [items]="sortItems" [placeholder]="'Sort by'" (onChange)="changeSort($event)"></app-select>
+    </div>
     <div class="control-panel__group">
         <app-search-games></app-search-games>
         <app-select class="control-panel__categories" [multiselect]="true" [placeholder]="'ALL PROVIDERS'" [items]="categories" (onChange)="changeCategories($event)"></app-select>
