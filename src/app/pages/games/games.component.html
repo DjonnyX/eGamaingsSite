@@ -1,0 +1,21 @@
+<div class="games-page">
+    <div class="top-panel">
+        <app-header></app-header>
+        <app-control-panel></app-control-panel>
+    </div>
+
+    <div class="wrapper">
+        <ng-template [ngIf]="isLoading$ | async">
+            <div class="games-loader">
+                <div class="lds-roller"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            </div>
+        </ng-template>
+        <div class="content-list">
+            <app-games-list></app-games-list>
+        </div>
+    </div>
+
+    <div class="bottom-panel">
+        <app-bottom-panel></app-bottom-panel>
+    </div>
+</div>

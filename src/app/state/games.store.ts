@@ -14,6 +14,8 @@ import { Debounse } from '../utils/debounse.util';
 export class GamesStore {
 
   private _totalGames = new BehaviorSubject<number>(0);
+  
+  private _isLoading = new BehaviorSubject<boolean>(true);
 
   private _gamesList = new BehaviorSubject<Array<IGameModel>>([]);
 
@@ -21,15 +23,41 @@ export class GamesStore {
 
   private _debounceGetGames = new Debounse(() => {this._getGames()}, 250);
 
+  private _filterName: string;
+
+  private _filterCategories: IGameFilterParams[];
+
   constructor(private _apiService: ApiService) { }
 
   private _getGames() {
+    this._isLoading.next(true);
+
     this._apiService.getGames(this._filter).subscribe(
       (data) => {
+        this._isLoading.next(false);
         this._totalGames.next(data.total);
         this._gamesList.next(data.items)
       }
     );
+  }
+
+  private normalizedCategFilter(categories: string[]): IGameFilterParams[] {
+    const result = [];
+    for (let i = 0, l = categories.length; i < l; i ++) {
+      const categ = categories[i];
+      result.push({tag: categ});
+    }
+    return result;
+  }
+
+  private composeFilter() {
+    const filter = this._filterCategories;
+
+    if (this._filterName && this._filterName !== "") {
+      filter.push({name: this._filterName});
+    }
+
+    this._filter.filter = filter;
   }
 
   // query
@@ -39,15 +67,23 @@ export class GamesStore {
   }
 
   querySearchByName(value: string) {
-    this._filter.filter = [];
-    if (value && value !== "") {
-      this._filter.filter.push({ name: value });
-    }
+    this._filterName = value;
+
+    this.composeFilter();
+
     this.queryGetGameList();
   }
 
   querySetPagination(data: IPaginationParams) {
     this._filter.paging = data;
+    this.queryGetGameList();
+  }
+
+  querySetCategoriesFilter(categories: string[]) {
+    this._filterCategories = this.normalizedCategFilter(categories);
+  
+    this.composeFilter();
+  
     this.queryGetGameList();
   }
 
@@ -68,6 +104,12 @@ export class GamesStore {
   selectGamesTotalLength() {
     return this._totalGames.pipe(
       map(total => total),
+    )
+  }
+
+  selectIsLoading() {
+    return this._isLoading.pipe(
+      map(val => val),
     )
   }
 }

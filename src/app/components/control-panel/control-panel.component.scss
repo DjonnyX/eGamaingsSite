@@ -2,10 +2,7 @@
 @import "../../../styles/vars/colors";
 
 .control-panel {
-    position: sticky;
-    top: $panel-height;
     height: $panel-height;
-    z-index: 1;
     background-color: #000000;
     display: flex;
     justify-content: space-between;
@@ -15,5 +12,14 @@
     .paginator__info {
         color: $color-ochre;
         padding: 0 14px;
+    }
+
+    .control-panel__group {
+        display: flex;
+    }
+
+    .control-panel__categories {
+        width: 172px;
+        margin-left: 8px;
     }
 }
