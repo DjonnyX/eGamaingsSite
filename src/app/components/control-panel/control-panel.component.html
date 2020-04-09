@@ -1,6 +1,7 @@
 <div class="control-panel">
     <div class="control-panel__group">
         <app-select #sortBy class="control-panel__sort-by" [autoselectFirst]="false" [items]="sortItems" [placeholder]="'Sort by'" (onChange)="changeSort($event)"></app-select>
+        <app-select #orderBy class="control-panel__order-by" [disabled]="disableOrderBy" [autoselectFirst]="false" [items]="orderItems" [placeholder]="'Order by'" (onChange)="changeOrder($event)"></app-select>
     </div>
     <div class="control-panel__group">
         <app-search-games></app-search-games>

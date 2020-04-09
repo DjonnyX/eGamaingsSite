@@ -1,4 +1,4 @@
-<div class="select">
+<div class="select" [ngClass]="{'disabled': disabled}">
     <select>
         <option *ngFor="let item of items" [value]="item">{{item}}</option>
     </select>

@@ -20,6 +20,12 @@ const SORT_ITEMS = [
   "name",
 ];
 
+const ORDER_ITEMS = [
+  "none",
+  "descending",
+  "ascent",
+]
+
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
@@ -30,10 +36,15 @@ const SORT_ITEMS = [
 export class ControlPanelComponent implements OnInit {
 
   @ViewChild("sortBy") _sortByComponent: SelectComponent;
+  @ViewChild("orderBy") _orderByComponent: SelectComponent;
 
   categories = CATEGORIES;
 
   sortItems = SORT_ITEMS;
+
+  orderItems = ORDER_ITEMS;
+
+  disableOrderBy = true;
 
   constructor(private _store: GamesStore) { }
 
@@ -45,9 +56,23 @@ export class ControlPanelComponent implements OnInit {
 
   changeSort(sortBy: string): void {
     if (sortBy === "none") {
+      this.disableOrderBy = true;
       this._sortByComponent.reset();
+    } else {
+      this.disableOrderBy = false;
     }
 
     this._store.querySetSortByFilter(sortBy);
+  }
+
+  changeOrder(orderBy: string): void {
+    let value: string;
+    switch (orderBy) {
+      case "none": this._orderByComponent.reset(); value = orderBy; break;
+      case "descending": value = 'DESC'; break;
+      case "ascent": value = 'ASC'; break;
+    }
+
+    this._store.queryOrderByFilter(value);
   }
 }

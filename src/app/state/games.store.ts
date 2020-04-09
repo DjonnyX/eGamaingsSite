@@ -29,6 +29,8 @@ export class GamesStore {
 
   private _filterSortBy: string;
 
+  private _filterOrderBy: string;
+
   constructor(private _apiService: ApiService) { }
 
   private _getGames() {
@@ -65,6 +67,12 @@ export class GamesStore {
       this._filter.sortBy = this._filterSortBy;
     }
 
+    if (this._filterOrderBy === "none") {
+      delete this._filter.order;
+    } else {
+      this._filter.order = this._filterOrderBy as ("DESC" | "ASC");
+    }
+
     this._filter.filter = filter;
   }
 
@@ -97,6 +105,14 @@ export class GamesStore {
 
   querySetSortByFilter(sortBy: string) {
     this._filterSortBy = sortBy;
+
+    this.composeFilter();
+  
+    this.queryGetGameList();
+  }
+
+  queryOrderByFilter(orderBy: string) {
+    this._filterOrderBy = orderBy;
 
     this.composeFilter();
   

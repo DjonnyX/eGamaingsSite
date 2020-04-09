@@ -29,6 +29,7 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() placeholder = "";
   @Input() direction: SelectDirection;
   @Input() autoselectFirst = true;
+  @Input() disabled = false;
 
   private _valueChanges;
   public get valueChanges() {

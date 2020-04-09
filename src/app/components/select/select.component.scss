@@ -4,6 +4,11 @@
     position: relative;
     height: 40px;
     z-index: 1000;
+
+    &.disabled {
+        opacity: 0.25;
+        pointer-events: none;
+    }
 }
 
 .select__overlay {
