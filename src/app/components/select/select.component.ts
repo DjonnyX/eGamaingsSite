@@ -1,16 +1,18 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss']
+  styleUrls: ['./select.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectSelected') _selectSelected: ElementRef;
   @ViewChild('selectItems') _selectItems: ElementRef;
+  @ViewChild('overlay') _overlay: ElementRef;
 
-  @Output() onSelect = new EventEmitter<string>();
+  @Output() onChange = new EventEmitter<string>();
   
   @Input() items: Array<string>;
 
@@ -28,10 +30,10 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    this.valueChanges.subscribe(
+    this._valueChangesSubscr = this.valueChanges.subscribe(
       (value: string) => {
         if (value) {
-          this.onSelect.next(value);
+          this.onChange.next(value);
         }
       }
     )
@@ -61,10 +63,13 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
+    const overlay = this._overlay.nativeElement as HTMLElement;
     if (this._isExpanded) {
+      overlay.classList.remove("hiden");
       elem.classList.add("select-arrow-active");
       elemItems.classList.remove("select-hide");
     } else {
+      overlay.classList.add("hiden");
       elem.classList.remove("select-arrow-active");
       elemItems.classList.add("select-hide");
     }
