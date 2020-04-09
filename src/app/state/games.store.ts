@@ -4,9 +4,9 @@ import { IGameModel } from '../models/IGameModel';
 import { ApiService, IGameFilterParams } from '../services/api.service';
 import { map } from 'rxjs/operators';
 import { IRequestParams } from '../utils/srv-request.util';
-
 import { IPaginationParams } from '../components/paginator/interfaces';
 import { Debounse } from '../utils/debounse.util';
+import { isEqual } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,8 @@ export class GamesStore {
   }
 
   querySearchByName(value: string) {
+    if (this._filterSortBy === value) return;
+  
     this._filterName = value;
 
     this.composeFilter();
@@ -90,7 +92,9 @@ export class GamesStore {
     this.queryGetGameList();
   }
 
-  querySetPagination(data: IPaginationParams) {
+  querySetPagination(data: IPaginationParams): void {
+    if (isEqual(this._filter.paging, data)) return;
+
     this._filter.paging = data;
     this.queryGetGameList();
   }
@@ -104,6 +108,8 @@ export class GamesStore {
   }
 
   querySetSortByFilter(sortBy: string) {
+    if (this._filterSortBy === sortBy) return;
+  
     this._filterSortBy = sortBy;
 
     this.composeFilter();
@@ -112,6 +118,8 @@ export class GamesStore {
   }
 
   queryOrderByFilter(orderBy: string) {
+    if (this._filterOrderBy === orderBy) return;
+
     this._filterOrderBy = orderBy;
 
     this.composeFilter();
