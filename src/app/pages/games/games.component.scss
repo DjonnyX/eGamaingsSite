@@ -1,14 +1,16 @@
 @import "../../../styles/vars/sizes";
 @import "../../../styles/vars/colors";
 
-.top-panel {
+.top-panel,
+.bottom-panel {
+    z-index: 1000;
 }
+
 .content-list {
     overflow: auto;
     height: 100%;
 }
-.bottom-panel {
-}
+
 .games-page {
     display: grid;
     grid-template-rows: auto 1fr $panel-height;

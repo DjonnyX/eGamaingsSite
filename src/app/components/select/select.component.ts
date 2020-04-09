@@ -4,10 +4,11 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 const OPT_SELECT_CLASS = "same-as-selected";
 const SELECT_ARROW_ACTIVE_CLASS = "select-arrow-active";
 const SELECT_HIDE_CLASS = "select-hide";
+const OVERLAY_HIDDEN_CLASS = "hidden";
 
 export enum SelectDirection {
   Top,
-  Bottom
+  Bottom,
 }
 
 @Component({
@@ -19,6 +20,7 @@ export enum SelectDirection {
 export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectSelected') _selectSelected: ElementRef;
   @ViewChild('selectItems') _selectItems: ElementRef;
+  @ViewChild('overlay') _overlay: ElementRef;
 
   @Output() onChange = new EventEmitter<string | string[]>();
 
@@ -26,6 +28,8 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() multiselect = false;
   @Input() placeholder = "";
   @Input() direction: SelectDirection;
+  @Input() autoselectFirst = true;
+  @Input() disabled = false;
 
   private _valueChanges;
   public get valueChanges() {
@@ -56,19 +60,39 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
     this.setDefaultValue();
   }
 
-  setDefaultValue() {
+  reset(): void {
+    if (!this.autoselectFirst) {
+      const elem = this._selectSelected.nativeElement as HTMLElement;
+      elem.innerHTML = this.placeholder;
+
+      const elemItems = this._selectItems.nativeElement as HTMLElement;
+      const options = elemItems.childNodes;
+      for (let i = 0, l = options.length; i < l; i++) {
+        const option = options[i] as HTMLElement;
+        if (option.classList && option.classList.contains(OPT_SELECT_CLASS)) {
+          option.classList.remove(OPT_SELECT_CLASS);
+        }
+      }
+    }
+  }
+
+  setDefaultValue(): void {
     const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
 
-    const options = elemItems.childNodes;
-    if (!this.multiselect && options.length > 0) {
-      this._selectedElement = options[0] as HTMLElement;
-      const value = this._selectedElement.innerHTML;
-      elem.innerHTML = value;
-      this._selectedElement.classList.add(OPT_SELECT_CLASS);
+    if (this.autoselectFirst) {
+      const options = elemItems.childNodes;
+      if (!this.multiselect && options.length > 0) {
+        this._selectedElement = options[0] as HTMLElement;
+        const value = this._selectedElement.innerHTML;
+        elem.innerHTML = value;
+        this._selectedElement.classList.add(OPT_SELECT_CLASS);
 
-      this._valueChanges.next(value);
-    } else if (this.multiselect) {
+        this._valueChanges.next(value);
+      } else if (this.multiselect) {
+        elem.innerHTML = this.placeholder;
+      }
+    } else {
       elem.innerHTML = this.placeholder;
     }
   }
@@ -78,10 +102,13 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
+    const overlay = this._overlay.nativeElement as HTMLElement;
     if (this._isExpanded) {
+      overlay.classList.remove(OVERLAY_HIDDEN_CLASS);
       elem.classList.add(SELECT_ARROW_ACTIVE_CLASS);
       elemItems.classList.remove(SELECT_HIDE_CLASS);
     } else {
+      overlay.classList.add(OVERLAY_HIDDEN_CLASS);
       elem.classList.remove(SELECT_ARROW_ACTIVE_CLASS);
       elemItems.classList.add(SELECT_HIDE_CLASS);
     }
@@ -89,7 +116,7 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   select($event: MouseEvent, value: string) {
     const elem = this._selectSelected.nativeElement as HTMLElement;
-    
+
     if (!this.multiselect) {
       elem.innerHTML = value;
     }
@@ -97,9 +124,9 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.multiselect && this._selectedElement) {
       this._selectedElement.classList.remove(OPT_SELECT_CLASS);
     }
-  
+
     this._selectedElement = $event.target as HTMLElement;
-  
+
     if (this.multiselect && this._selectedElement.classList.contains(OPT_SELECT_CLASS)) {
       this._selectedElement.classList.remove(OPT_SELECT_CLASS);
     } else {
@@ -121,7 +148,6 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getMultiselectValues() {
-    const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
     const result = [];
     const options = elemItems.childNodes;

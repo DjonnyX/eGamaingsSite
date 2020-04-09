@@ -27,6 +27,9 @@ export const createRequestParams = function <T>(options: IRequestParams<T>): IQu
 
     if (!options) return result;
 
+    // Добавление параметра позициионирования
+    if (options.order) result["_order"] = options.order;
+
     // Добавление параметра сортировки
     if (options.sortBy) result["_sort"] = options.sortBy;
 
