@@ -1,12 +1,12 @@
 <div class="card-info" [ngClass]="{'hit': isMouseHover$ | async}">
     <div class="card-info__container">
         <h3 class="card-info__header">{{name}}</h3>
-        <ng-template [ngIf]="isFavorite$ | async" [ngIfElse]="favorite">
-            <div class="icon-favorite-selected"></div>
+        <ng-template [ngIf]="isFavorite" [ngIfElse]="favorite">
+            <div class="icon-favorite-selected" (click)="onRemoveFavorite()"></div>
         </ng-template>
 
         <ng-template #favorite>
-            <div class="icon-favorite"></div>
+            <div class="icon-favorite" (click)="onSaveAsFavorite()"></div>
         </ng-template>
     </div>
     <button class="card-info__load-button">Play</button>

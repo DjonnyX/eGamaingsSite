@@ -1,7 +1,7 @@
 <ul class="games-list">
-    <li *ngFor="let game of gamesList$ | async; index as i">
+    <li *ngFor="let game of compositeGameList$ | async; index as i">
         <div class="game-list__card" [ngStyle]="{'background-image': 'url(' + game.image + ')'}">
-            <app-game-card [name]="game.name"></app-game-card>
+            <app-game-card [name]="game.name" [isFavorite]="game._isFavorite" (saveAsFavorite)="saveAsFavorite(game.id)" (removeFavorite)="removeFavorite(game.id)"></app-game-card>
         </div>
     </li>
 </ul>

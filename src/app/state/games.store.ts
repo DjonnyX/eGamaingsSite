@@ -130,9 +130,7 @@ export class GamesStore {
   // selectors
 
   selectGamesList() {
-    return this._gamesList.pipe(
-      map(items => items),
-    )
+    return this._gamesList.asObservable();
   }
 
   selectGamesLengthPerPage() {
@@ -142,14 +140,10 @@ export class GamesStore {
   }
 
   selectGamesTotalLength() {
-    return this._totalGames.pipe(
-      map(total => total),
-    )
+    return this._totalGames.asObservable();
   }
 
   selectIsLoading() {
-    return this._isLoading.pipe(
-      map(val => val),
-    )
+    return this._isLoading.asObservable();
   }
 }
