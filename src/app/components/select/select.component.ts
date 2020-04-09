@@ -83,7 +83,10 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   select($event: MouseEvent, value: string) {
     const elem = this._selectSelected.nativeElement as HTMLElement;
-    elem.innerHTML = value;
+    
+    if (!this.multiselect) {
+      elem.innerHTML = value;
+    }
 
     if (!this.multiselect && this._selectedElement) {
       this._selectedElement.classList.remove(OPT_SELECT_CLASS);
@@ -99,9 +102,15 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
     if (this.multiselect) {
       const values = this.getMultiselectValues();
+
+      if (values.length === 0) {
+        elem.innerHTML = this.placeholder;
+      }
+
       this._valueChanges.next(values);
     } else {
       this._valueChanges.next(value);
+      this.toggle();
     }
   }
 
