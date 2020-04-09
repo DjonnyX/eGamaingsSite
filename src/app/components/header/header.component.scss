@@ -1,31 +1,24 @@
 @import "../../../styles/vars/sizes";
+@import "../../../styles/vars/colors";
 
 .header {
     position: sticky;
     top: 0;
     z-index: 1;
-    background-color: #eac68d;
+    background-color: $color-deep-ochre;
     height: $panel-height;
     display: flex;
     align-items: center;
     padding: 0 40px;
 
     .header__item {
-        color: #101010;
         margin: 0;
-        font-weight: 800;
-        font-size: 1.1em;
+        color: rgba(255, 255, 255, 0.83);
+        font-weight: 300;
+        margin: 0;
 
         &:last-child {
             padding-left: 40px;
-        }
-    }
-}
-
-@media only screen and (min-width: 1140px) {
-    .header {
-        .header__item {
-            font-size: 1.2em;
         }
     }
 }
