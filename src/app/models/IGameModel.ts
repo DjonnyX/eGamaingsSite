@@ -23,5 +23,5 @@ export interface IGameModel {
     /**
      * Тэг игры
      */
-    tag: Array<string>;
+    tag: string;
 }
