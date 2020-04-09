@@ -2,7 +2,7 @@
 
 ![preview](https://user-images.githubusercontent.com/17039317/78920550-40456d00-7a9c-11ea-87e8-3b05db52beff.gif)
 
-Run `npm run` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Run `npm start` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
 
