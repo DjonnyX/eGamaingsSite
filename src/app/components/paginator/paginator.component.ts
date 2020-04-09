@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewEncapsulation, Output, EventEmitter, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IPaginationParams } from './interfaces';
+import { SelectDirection } from '../select/select.component';
 import { Debounse } from 'src/app/utils/debounse.util';
 
 @Component({
@@ -13,10 +14,11 @@ export class PaginatorComponent implements OnInit, OnDestroy {
 
   @Output() change = new EventEmitter<IPaginationParams>();
 
+  @Input() direction = SelectDirection.Top;
+
   itemsOnPage = [
-    5,
-    10,
     20,
+    30,
     50,
     100
   ]

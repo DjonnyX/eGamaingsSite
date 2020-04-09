@@ -35,6 +35,11 @@ $icon-size: 32px;
         @include button;
         margin-left: 1px;
     }
+
+    .paginator__info {
+        color: $color-ochre;
+        padding: 0 8px;
+    }
 }
 
 .paginator__select-items-per-page {

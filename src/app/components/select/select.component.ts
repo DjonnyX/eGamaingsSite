@@ -5,6 +5,11 @@ const OPT_SELECT_CLASS = "same-as-selected";
 const SELECT_ARROW_ACTIVE_CLASS = "select-arrow-active";
 const SELECT_HIDE_CLASS = "select-hide";
 
+export enum SelectDirection {
+  Top,
+  Bottom
+}
+
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -20,6 +25,7 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @Input() items: Array<string>;
   @Input() multiselect = false;
   @Input() placeholder = "";
+  @Input() direction: SelectDirection;
 
   private _valueChanges;
   public get valueChanges() {

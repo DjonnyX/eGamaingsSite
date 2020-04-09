@@ -14,6 +14,8 @@ import { Debounse } from '../utils/debounse.util';
 export class GamesStore {
 
   private _totalGames = new BehaviorSubject<number>(0);
+  
+  private _isLoading = new BehaviorSubject<boolean>(true);
 
   private _gamesList = new BehaviorSubject<Array<IGameModel>>([]);
 
@@ -28,8 +30,11 @@ export class GamesStore {
   constructor(private _apiService: ApiService) { }
 
   private _getGames() {
+    this._isLoading.next(true);
+
     this._apiService.getGames(this._filter).subscribe(
       (data) => {
+        this._isLoading.next(false);
         this._totalGames.next(data.total);
         this._gamesList.next(data.items)
       }
@@ -99,6 +104,12 @@ export class GamesStore {
   selectGamesTotalLength() {
     return this._totalGames.pipe(
       map(total => total),
+    )
+  }
+
+  selectIsLoading() {
+    return this._isLoading.pipe(
+      map(val => val),
     )
   }
 }

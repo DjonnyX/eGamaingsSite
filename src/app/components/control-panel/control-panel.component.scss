@@ -2,10 +2,7 @@
 @import "../../../styles/vars/colors";
 
 .control-panel {
-    position: sticky;
-    top: $panel-height;
     height: $panel-height;
-    z-index: 1;
     background-color: #000000;
     display: flex;
     justify-content: space-between;

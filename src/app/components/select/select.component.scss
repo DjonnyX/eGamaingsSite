@@ -19,7 +19,6 @@
     &:hover {
         border: 1px solid $color-ochre;
         background-color: $color-deep-ochre-10;
-        // color: $color-deep-ochre;
     }
 }
 
@@ -60,10 +59,15 @@
 .select-items {
     position: absolute;
     background-color: $color-ochre;
-    top: 100%;
     left: 0;
     right: 0;
     z-index: 99;
+    &.top {
+        top: 100%;
+    }
+    &.bottom {
+        bottom: 100%;
+    }
 }
 
 .select__label {
@@ -80,5 +84,5 @@
     background-color: rgba(0, 0, 0, 0.1);
 }
 .same-as-selected {
-    color: white !important;
+    color: $color-deep-ochre-20;
 }

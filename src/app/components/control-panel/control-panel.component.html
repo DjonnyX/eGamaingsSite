@@ -1,6 +1,5 @@
 <div class="control-panel">
-    <app-paginator [total]="totalGamesLength$ | async" (change)="paginatorChange($event)"></app-paginator>
-
+    <div></div>
     <div class="control-panel__group">
         <app-search-games></app-search-games>
         <app-select class="control-panel__categories" [multiselect]="true" [placeholder]="'ALL PROVIDERS'" [items]="categories" (onChange)="changeCategories($event)"></app-select>

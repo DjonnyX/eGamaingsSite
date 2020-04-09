@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { GamesStore } from 'src/app/state/games.store';
-import { Observable } from 'rxjs';
-import { IPaginationParams } from '../paginator/interfaces';
 
 const CATEGORIES = [
   "Evolution",
@@ -27,17 +25,9 @@ export class ControlPanelComponent implements OnInit {
 
   categories = CATEGORIES;
 
-  totalGamesLength$: Observable<number>;
-
   constructor(private _store: GamesStore) { }
 
-  ngOnInit(): void {
-    this.totalGamesLength$ = this._store.selectGamesTotalLength();
-  }
-
-  paginatorChange(data: IPaginationParams) {
-    this._store.querySetPagination(data);
-  }
+  ngOnInit(): void { }
 
   changeCategories(selectedCategories: Array<string>) {
     this._store.querySetCategoriesFilter(selectedCategories);
