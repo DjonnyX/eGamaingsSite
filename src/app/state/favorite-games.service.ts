@@ -59,9 +59,7 @@ export class FavoriteGamesService {
     
     this.setFilter();
     
-    if (this._ids.length > 0) {
-      this.queryGetFavoriteGames();
-    }
+    this.queryGetFavoriteGames();
   }
 
   /**
@@ -101,7 +99,11 @@ export class FavoriteGamesService {
   // query
 
   queryGetFavoriteGames(): void {
-    this._debounceGetGames.call();
+    if (this._ids.length > 0) {
+      this._debounceGetGames.call();
+    } else {
+      this._gamesList.next([]);
+    }
   }
 
   querySaveGameById(id: string): void {
