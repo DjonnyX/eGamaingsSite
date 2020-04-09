@@ -21,6 +21,10 @@ export class GamesStore {
 
   private _debounceGetGames = new Debounse(() => {this._getGames()}, 250);
 
+  private _filterName: string;
+
+  private _filterCategories: IGameFilterParams[];
+
   constructor(private _apiService: ApiService) { }
 
   private _getGames() {
@@ -32,6 +36,25 @@ export class GamesStore {
     );
   }
 
+  private normalizedCategFilter(categories: string[]): IGameFilterParams[] {
+    const result = [];
+    for (let i = 0, l = categories.length; i < l; i ++) {
+      const categ = categories[i];
+      result.push({tag: categ});
+    }
+    return result;
+  }
+
+  private composeFilter() {
+    const filter = this._filterCategories;
+
+    if (this._filterName && this._filterName !== "") {
+      filter.push({name: this._filterName});
+    }
+
+    this._filter.filter = filter;
+  }
+
   // query
 
   queryGetGameList() {
@@ -39,15 +62,23 @@ export class GamesStore {
   }
 
   querySearchByName(value: string) {
-    this._filter.filter = [];
-    if (value && value !== "") {
-      this._filter.filter.push({ name: value });
-    }
+    this._filterName = value;
+
+    this.composeFilter();
+
     this.queryGetGameList();
   }
 
   querySetPagination(data: IPaginationParams) {
     this._filter.paging = data;
+    this.queryGetGameList();
+  }
+
+  querySetCategoriesFilter(categories: string[]) {
+    this._filterCategories = this.normalizedCategFilter(categories);
+  
+    this.composeFilter();
+  
     this.queryGetGameList();
   }
 

@@ -39,7 +39,7 @@ export class ControlPanelComponent implements OnInit {
     this._store.querySetPagination(data);
   }
 
-  changeCategories(data) {
-    
+  changeCategories(selectedCategories: Array<string>) {
+    this._store.querySetCategoriesFilter(selectedCategories);
   }
 }

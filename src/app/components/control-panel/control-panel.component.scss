@@ -16,4 +16,13 @@
         color: $color-ochre;
         padding: 0 14px;
     }
+
+    .control-panel__group {
+        display: flex;
+    }
+
+    .control-panel__categories {
+        width: 172px;
+        margin-left: 8px;
+    }
 }

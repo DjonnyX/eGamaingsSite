@@ -1,6 +1,10 @@
 import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
+const OPT_SELECT_CLASS = "same-as-selected";
+const SELECT_ARROW_ACTIVE_CLASS = "select-arrow-active";
+const SELECT_HIDE_CLASS = "select-hide";
+
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
@@ -10,13 +14,14 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectSelected') _selectSelected: ElementRef;
   @ViewChild('selectItems') _selectItems: ElementRef;
-  @ViewChild('overlay') _overlay: ElementRef;
 
-  @Output() onChange = new EventEmitter<string>();
-  
+  @Output() onChange = new EventEmitter<string | string[]>();
+
   @Input() items: Array<string>;
+  @Input() multiselect = false;
+  @Input() placeholder = "";
 
-  private _valueChanges = new BehaviorSubject<string>("");
+  private _valueChanges;
   public get valueChanges() {
     return this._valueChanges.asObservable();
   }
@@ -29,7 +34,11 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  ngAfterViewInit(): void {
+    this._valueChanges = new BehaviorSubject<string | string[]>(this.multiselect ? [] : "");
+
     this._valueChangesSubscr = this.valueChanges.subscribe(
       (value: string) => {
         if (value) {
@@ -37,9 +46,7 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
         }
       }
     )
-  }
 
-  ngAfterViewInit():  void {
     this.setDefaultValue();
   }
 
@@ -48,13 +55,15 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
     const elemItems = this._selectItems.nativeElement as HTMLElement;
 
     const options = elemItems.childNodes;
-    if (options.length > 0) {
+    if (!this.multiselect && options.length > 0) {
       this._selectedElement = options[0] as HTMLElement;
       const value = this._selectedElement.innerHTML;
       elem.innerHTML = value;
-      this._selectedElement.classList.add("same-as-selected");
+      this._selectedElement.classList.add(OPT_SELECT_CLASS);
 
       this._valueChanges.next(value);
+    } else if (this.multiselect) {
+      elem.innerHTML = this.placeholder;
     }
   }
 
@@ -63,15 +72,12 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
-    const overlay = this._overlay.nativeElement as HTMLElement;
     if (this._isExpanded) {
-      overlay.classList.remove("hiden");
-      elem.classList.add("select-arrow-active");
-      elemItems.classList.remove("select-hide");
+      elem.classList.add(SELECT_ARROW_ACTIVE_CLASS);
+      elemItems.classList.remove(SELECT_HIDE_CLASS);
     } else {
-      overlay.classList.add("hiden");
-      elem.classList.remove("select-arrow-active");
-      elemItems.classList.add("select-hide");
+      elem.classList.remove(SELECT_ARROW_ACTIVE_CLASS);
+      elemItems.classList.add(SELECT_HIDE_CLASS);
     }
   }
 
@@ -79,15 +85,38 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
     const elem = this._selectSelected.nativeElement as HTMLElement;
     elem.innerHTML = value;
 
-    if (this._selectedElement) {
-      this._selectedElement.classList.remove("same-as-selected");
+    if (!this.multiselect && this._selectedElement) {
+      this._selectedElement.classList.remove(OPT_SELECT_CLASS);
     }
+  
     this._selectedElement = $event.target as HTMLElement;
-    this._selectedElement.classList.add("same-as-selected");
+  
+    if (this.multiselect && this._selectedElement.classList.contains(OPT_SELECT_CLASS)) {
+      this._selectedElement.classList.remove(OPT_SELECT_CLASS);
+    } else {
+      this._selectedElement.classList.add(OPT_SELECT_CLASS);
+    }
 
-    this.toggle();
+    if (this.multiselect) {
+      const values = this.getMultiselectValues();
+      this._valueChanges.next(values);
+    } else {
+      this._valueChanges.next(value);
+    }
+  }
 
-    this._valueChanges.next(value);
+  getMultiselectValues() {
+    const elem = this._selectSelected.nativeElement as HTMLElement;
+    const elemItems = this._selectItems.nativeElement as HTMLElement;
+    const result = [];
+    const options = elemItems.childNodes;
+    for (let i = 0, l = options.length; i < l; i++) {
+      const option = options[i] as HTMLElement;
+      if (option.classList && option.classList.contains(OPT_SELECT_CLASS)) {
+        result.push(option.innerHTML);
+      }
+    }
+    return result;
   }
 
   ngOnDestroy() {
