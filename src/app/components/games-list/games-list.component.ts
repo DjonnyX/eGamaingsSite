@@ -16,10 +16,9 @@ export class GamesListComponent implements OnInit {
   gamesList$: Observable<Array<IGameModel>>;
 
   constructor(private _gamesStore: GamesStore) {
-    this.gamesList$ = _gamesStore.gamesList;
+    this.gamesList$ = _gamesStore.selectGamesList();
   }
 
   ngOnInit(): void {
-    this._gamesStore.updateGameList();
   }
 }

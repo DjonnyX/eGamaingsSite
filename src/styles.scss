@@ -3,8 +3,13 @@
 body {
     margin: 0;
     font-family: 'Roboto';
+    background-color: #101010;
 }
 
 button {
     @include reset-button;
+}
+
+input {
+    @include reset-input;
 }

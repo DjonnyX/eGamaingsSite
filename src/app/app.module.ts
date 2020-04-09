@@ -5,17 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GamesListModule } from './modules/games-list/games-list.module';
 import { HttpClientModule } from '@angular/common/http';
-import { GameCardComponent } from './components/games-list/game-card/game-card.component';
+import { HeaderModule } from './modules/header/header.module';
+import { ControlPanelModule } from './modules/control-panel/control-panel.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    GamesListModule
+    GamesListModule,
+    HeaderModule,
+    ControlPanelModule
   ],
   providers: [],
   bootstrap: [AppComponent]

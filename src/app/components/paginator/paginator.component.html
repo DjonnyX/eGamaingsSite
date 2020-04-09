@@ -1,0 +1,7 @@
+<div class="paginator">
+    <span class="paginator__label">Items per page</span>
+    <app-select class="paginator__select-items-per-page" [items]="itemsOnPage" (onSelect)="changeItemsPerPage($event)"></app-select>
+    <span class="paginator__info">{{paginationInfo$ | async}}</span>
+    <button class="icon-prev paginator__button-prev" (click)="onPrevious($event)"></button>
+    <button class="icon-next paginator__button-next" (click)="onNext($event)"></button>
+</div>

@@ -1,0 +1,9 @@
+<div class="select">
+    <select>
+        <option *ngFor="let item of items" [value]="item">{{item}}</option>
+    </select>
+    <div #selectSelected class="select-selected" (click)="toggle()"></div>
+    <div #selectItems class="select-items select-hide">
+        <div *ngFor="let item of items" (click)="select($event, item)">{{item}}</div>
+    </div>
+</div>

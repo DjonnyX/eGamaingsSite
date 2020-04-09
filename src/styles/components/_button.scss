@@ -1,0 +1,13 @@
+.button {
+    width: 140px;
+    height: 42px;
+    background-color: #eac68d;
+    color: #251b0b;
+    font-size: 1.1em;
+    font-weight: 300;
+    text-transform: uppercase;
+
+    &:hover {
+        background-color: white;
+    }
+}

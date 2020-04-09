@@ -1,0 +1,4 @@
+<div class="control-panel">
+    <app-paginator [total]="totalGamesLength$ | async" (change)="paginatorChange($event)"></app-paginator>
+    <app-search-games></app-search-games>
+</div>

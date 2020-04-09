@@ -17,7 +17,7 @@ export class ApiRoutes {
   static get GAMES() { return ApiRoutes._games; }
 }
 
-interface IGameFilterParams {
+export interface IGameFilterParams {
   id?: number;
   name?: string;
   tag?: Array<string>;
