@@ -33,6 +33,7 @@ $icon-size: 32px;
 
     .paginator__button-next {
         @include button;
+        margin-left: 1px;
     }
 }
 
