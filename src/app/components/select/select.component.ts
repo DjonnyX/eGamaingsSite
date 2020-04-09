@@ -4,6 +4,7 @@ import { BehaviorSubject, Subscription } from 'rxjs';
 const OPT_SELECT_CLASS = "same-as-selected";
 const SELECT_ARROW_ACTIVE_CLASS = "select-arrow-active";
 const SELECT_HIDE_CLASS = "select-hide";
+const OVERLAY_HIDDEN_CLASS = "hidden";
 
 export enum SelectDirection {
   Top,
@@ -19,6 +20,7 @@ export enum SelectDirection {
 export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectSelected') _selectSelected: ElementRef;
   @ViewChild('selectItems') _selectItems: ElementRef;
+  @ViewChild('overlay') _overlay: ElementRef;
 
   @Output() onChange = new EventEmitter<string | string[]>();
 
@@ -99,10 +101,13 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
     const elem = this._selectSelected.nativeElement as HTMLElement;
     const elemItems = this._selectItems.nativeElement as HTMLElement;
+    const overlay = this._overlay.nativeElement as HTMLElement;
     if (this._isExpanded) {
+      overlay.classList.remove(OVERLAY_HIDDEN_CLASS);
       elem.classList.add(SELECT_ARROW_ACTIVE_CLASS);
       elemItems.classList.remove(SELECT_HIDE_CLASS);
     } else {
+      overlay.classList.add(OVERLAY_HIDDEN_CLASS);
       elem.classList.remove(SELECT_ARROW_ACTIVE_CLASS);
       elemItems.classList.add(SELECT_HIDE_CLASS);
     }

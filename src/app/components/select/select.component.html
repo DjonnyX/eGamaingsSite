@@ -7,3 +7,4 @@
         <div *ngFor="let item of items" (click)="select($event, item)">{{item}}</div>
     </div>
 </div>
+<div #overlay class="select__overlay hidden" (click)="toggle()"></div>

@@ -3,7 +3,20 @@
 .select {
     position: relative;
     height: 40px;
-    z-index: 2;
+    z-index: 1000;
+}
+
+.select__overlay {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+
+    &.hidden {
+        display: none;
+    }
 }
 
 .select select {
