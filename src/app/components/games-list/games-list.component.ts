@@ -20,6 +20,5 @@ export class GamesListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._gamesStore.queryGetGameList();
   }
 }

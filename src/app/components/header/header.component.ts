@@ -14,7 +14,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(private _store: GamesStore) {
     this.gamesPerPage$ = _store.selectGamesLengthPerPage();
-    this.totalGamesPerPage$ = _store.selectGamesLength();
+    this.totalGamesPerPage$ = _store.selectGamesTotalLength();
   }
 
   ngOnInit(): void {

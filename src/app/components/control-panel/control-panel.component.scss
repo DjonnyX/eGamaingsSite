@@ -1,4 +1,5 @@
 @import "../../../styles/vars/sizes";
+@import "../../../styles/vars/colors";
 
 .control-panel {
     position: sticky;
@@ -10,4 +11,9 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
+
+    .paginator__info {
+        color: $color-ochre;
+        padding: 0 14px;
+    }
 }

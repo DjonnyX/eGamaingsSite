@@ -14,7 +14,9 @@ const AC_DEBOUNCE = 200;
 export class SearchGamesComponent implements OnInit {
 
   formGroup: FormGroup;
+  
   ctrlSearch: FormControl;
+  
   value$: Observable<string>;
 
   constructor(private _formBuilder: FormBuilder, private _store: GamesStore) {

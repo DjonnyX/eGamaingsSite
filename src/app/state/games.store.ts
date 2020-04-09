@@ -5,6 +5,9 @@ import { ApiService, IGameFilterParams } from '../services/api.service';
 import { map } from 'rxjs/operators';
 import { IRequestParams } from '../utils/srv-request.util';
 
+import { IPaginationParams } from '../components/paginator/interfaces';
+import { Debounse } from '../utils/debounse.util';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -16,11 +19,11 @@ export class GamesStore {
 
   private _filter: IRequestParams<IGameFilterParams> = { filter: [] };
 
+  private _debounceGetGames = new Debounse(() => {this._getGames()}, 250);
+
   constructor(private _apiService: ApiService) { }
 
-  // query
-
-  queryGetGameList() {
+  private _getGames() {
     this._apiService.getGames(this._filter).subscribe(
       (data) => {
         this._totalGames.next(data.total);
@@ -29,11 +32,22 @@ export class GamesStore {
     );
   }
 
+  // query
+
+  queryGetGameList() {
+    this._debounceGetGames.call();
+  }
+
   querySearchByName(value: string) {
     this._filter.filter = [];
     if (value && value !== "") {
       this._filter.filter.push({ name: value });
     }
+    this.queryGetGameList();
+  }
+
+  querySetPagination(data: IPaginationParams) {
+    this._filter.paging = data;
     this.queryGetGameList();
   }
 
@@ -51,7 +65,7 @@ export class GamesStore {
     )
   }
 
-  selectGamesLength() {
+  selectGamesTotalLength() {
     return this._totalGames.pipe(
       map(total => total),
     )

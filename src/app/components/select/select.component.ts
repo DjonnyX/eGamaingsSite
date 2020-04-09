@@ -1,14 +1,16 @@
-import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Component, OnInit, Input, ElementRef, ViewChild, AfterViewInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-select',
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent implements OnInit, AfterViewInit {
+export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('selectSelected') _selectSelected: ElementRef;
   @ViewChild('selectItems') _selectItems: ElementRef;
+
+  @Output() onSelect = new EventEmitter<string>();
   
   @Input() items: Array<string>;
 
@@ -21,9 +23,18 @@ export class SelectComponent implements OnInit, AfterViewInit {
 
   private _selectedElement: HTMLElement;
 
+  private _valueChangesSubscr: Subscription;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.valueChanges.subscribe(
+      (value: string) => {
+        if (value) {
+          this.onSelect.next(value);
+        }
+      }
+    )
   }
 
   ngAfterViewInit():  void {
@@ -72,5 +83,12 @@ export class SelectComponent implements OnInit, AfterViewInit {
     this.toggle();
 
     this._valueChanges.next(value);
+  }
+
+  ngOnDestroy() {
+    this._valueChangesSubscr.unsubscribe();
+    this._valueChangesSubscr = null;
+
+    this._selectedElement = null;
   }
 }
