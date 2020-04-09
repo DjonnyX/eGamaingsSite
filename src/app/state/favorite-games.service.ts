@@ -33,9 +33,11 @@ export class FavoriteGamesService {
    */
   private normalizedIdsFilter(ids: string[]): IGameFilterParams[] {
     const result = [];
-    for (let i = 0, l = ids.length; i < l; i++) {
-      const id = ids[i];
-      result.push({ id: id });
+    if (ids) {
+      for (let i = 0, l = ids.length; i < l; i++) {
+        const id = ids[i];
+        result.push({ id: id });
+      }
     }
     return result;
   }
@@ -99,6 +101,8 @@ export class FavoriteGamesService {
   // query
 
   queryGetFavoriteGames(): void {
+    if (!this._ids) this._ids = [];
+
     if (this._ids.length > 0) {
       this._debounceGetGames.call();
     } else {
