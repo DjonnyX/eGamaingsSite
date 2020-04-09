@@ -138,6 +138,10 @@ export class SelectComponent implements OnInit, AfterViewInit, OnDestroy {
 
       if (values.length === 0) {
         elem.innerHTML = this.placeholder;
+      } else if (values.length === 1) {
+        elem.innerHTML = values[0];
+      } else {
+        elem.innerHTML = `${values[0]} ...`;
       }
 
       this._valueChanges.next(values);

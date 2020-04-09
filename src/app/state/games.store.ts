@@ -4,9 +4,9 @@ import { IGameModel } from '../models/IGameModel';
 import { ApiService, IGameFilterParams } from '../services/api.service';
 import { map } from 'rxjs/operators';
 import { IRequestParams } from '../utils/srv-request.util';
-
 import { IPaginationParams } from '../components/paginator/interfaces';
 import { Debounse } from '../utils/debounse.util';
+import { isEqual } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +83,8 @@ export class GamesStore {
   }
 
   querySearchByName(value: string) {
+    if (this._filterSortBy === value) return;
+  
     this._filterName = value;
 
     this.composeFilter();
@@ -90,7 +92,9 @@ export class GamesStore {
     this.queryGetGameList();
   }
 
-  querySetPagination(data: IPaginationParams) {
+  querySetPagination(data: IPaginationParams): void {
+    if (isEqual(this._filter.paging, data)) return;
+
     this._filter.paging = data;
     this.queryGetGameList();
   }
@@ -104,6 +108,8 @@ export class GamesStore {
   }
 
   querySetSortByFilter(sortBy: string) {
+    if (this._filterSortBy === sortBy) return;
+  
     this._filterSortBy = sortBy;
 
     this.composeFilter();
@@ -112,6 +118,8 @@ export class GamesStore {
   }
 
   queryOrderByFilter(orderBy: string) {
+    if (this._filterOrderBy === orderBy) return;
+
     this._filterOrderBy = orderBy;
 
     this.composeFilter();
@@ -122,9 +130,7 @@ export class GamesStore {
   // selectors
 
   selectGamesList() {
-    return this._gamesList.pipe(
-      map(items => items),
-    )
+    return this._gamesList.asObservable();
   }
 
   selectGamesLengthPerPage() {
@@ -134,14 +140,10 @@ export class GamesStore {
   }
 
   selectGamesTotalLength() {
-    return this._totalGames.pipe(
-      map(total => total),
-    )
+    return this._totalGames.asObservable();
   }
 
   selectIsLoading() {
-    return this._isLoading.pipe(
-      map(val => val),
-    )
+    return this._isLoading.asObservable();
   }
 }

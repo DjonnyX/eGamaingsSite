@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, HostListener } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Input, OnDestroy, HostListener, Output, EventEmitter } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -11,19 +11,32 @@ import { BehaviorSubject } from 'rxjs';
   }
 })
 export class GameCardComponent implements OnInit, OnDestroy {
+  @Output() saveAsFavorite = new EventEmitter();
+
+  @Output() removeFavorite = new EventEmitter();
 
   @Input() name: string;
 
-  @Input() isFavorite: boolean;
+  private _isFavorite: boolean;
+  @Input() set isFavorite(v: boolean) {
+    this._isFavorite = v;
+  }
+  get isFavorite() {
+    return this._isFavorite;
+  }
 
   public isMouseHover$ = new BehaviorSubject<boolean>(false);
 
-  public isFavorite$ = new BehaviorSubject<boolean>(false);
-
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
 
+  onSaveAsFavorite(): void {
+    this.saveAsFavorite.emit();
+  }
+
+  onRemoveFavorite(): void {
+    this.removeFavorite.emit();
   }
 
   @HostListener('mouseover')
@@ -41,7 +54,5 @@ export class GameCardComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.isMouseHover$.unsubscribe();
     this.isMouseHover$ = null;
-    this.isFavorite$.unsubscribe();
-    this.isFavorite$ = null;
   }
 }

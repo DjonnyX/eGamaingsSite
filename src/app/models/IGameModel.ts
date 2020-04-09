@@ -24,4 +24,9 @@ export interface IGameModel {
      * Тэг игры
      */
     tag: string;
+
+    /**
+     * Лайкнутый пользователем
+     */
+    _isFavorite?: boolean;
 }
