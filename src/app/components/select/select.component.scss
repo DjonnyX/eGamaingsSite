@@ -26,11 +26,13 @@
 .select-selected {
     height: 100%;
     box-sizing: border-box;
-    background-color: $color-deep-ochre;
+    background-color: $color-deep-ochre-20;
+    border: 1px solid transparent;
 
     &:hover {
-        background-color: $color-ochre;
-        color: $color-deep-ochre;
+        border: 1px solid $color-ochre;
+        background-color: $color-deep-ochre-10;
+        // color: $color-deep-ochre;
     }
 }
 
@@ -53,7 +55,7 @@
 .select-items div,
 .select-selected {
     color: #ffffff;
-    padding: 8px 16px;
+    padding: 8px 34px 8px 16px;
     border: 1px solid transparent;
     border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
     cursor: pointer;
@@ -61,7 +63,7 @@
 }
 
 .select-items div {
-    color: $color-deep-ochre;
+    color: $color-deep-ochre-20;
 
     &:hover {
         color: white;

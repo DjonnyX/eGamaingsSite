@@ -3,6 +3,19 @@ import { GamesStore } from 'src/app/state/games.store';
 import { Observable } from 'rxjs';
 import { IPaginationParams } from '../paginator/interfaces';
 
+const CATEGORIES = [
+  "Evolution",
+  "AsiaGaming",
+  "BetGames",
+  "LuckyStreak",
+  "AuthenticGaming",
+  "OrientalGame",
+  "VivoGaming",
+  "Ezugi",
+  "SAGaming",
+  "XProGaming",
+]
+
 @Component({
   selector: 'app-control-panel',
   templateUrl: './control-panel.component.html',
@@ -11,6 +24,8 @@ import { IPaginationParams } from '../paginator/interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlPanelComponent implements OnInit {
+
+  categories = CATEGORIES;
 
   totalGamesLength$: Observable<number>;
 
@@ -22,5 +37,9 @@ export class ControlPanelComponent implements OnInit {
 
   paginatorChange(data: IPaginationParams) {
     this._store.querySetPagination(data);
+  }
+
+  changeCategories(data) {
+    
   }
 }
